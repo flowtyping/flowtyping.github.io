@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Генератор страниц</title>
+<style>
+  body { font-family: sans-serif; padding: 40px; }
+  button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+  #content { margin-top: 20px; padding: 20px; border: 1px solid #ccc; }
+</style>
+</head>
+<body>
+
+<button id="createBtn">Создать страницу</button>
+<div id="content">Стандартная страница</div>
+
+<script>
+  // максимум «созданных» страниц (хранится в localStorage)
+  function getMax() {
+    return parseInt(localStorage.getItem('maxPage') || '0', 10);
+  }
+  function setMax(n) {
+    localStorage.setItem('maxPage', n);
+  }
+
+  function render() {
+    const hash = location.hash.replace('#', '');
+    const num = parseInt(hash, 10);
+    const max = getMax();
+    const content = document.getElementById('content');
+
+    if (!hash) {
+      content.textContent = 'Стандартная страница (введите #1, #2 и т.д.)';
+      return;
+    }
+
+    if (isNaN(num) || num < 1 || num > max) {
+      // нет такой страницы — редирект на стандартную
+      location.hash = '';
+      return;
+    }
+
+    content.textContent = `Это страница №${num}`;
+  }
+
+  document.getElementById('createBtn').addEventListener('click', () => {
+    const next = getMax() + 1;
+    setMax(next);
+    location.hash = next; // переход на новую «страницу»
+  });
+
+  window.addEventListener('hashchange', render);
+  render();
+</script>
+
+</body>
+</html>
