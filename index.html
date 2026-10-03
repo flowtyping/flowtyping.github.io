@@ -1,57 +1,219 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Генератор страниц</title>
-<style>
-  body { font-family: sans-serif; padding: 40px; }
-  button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
-  #content { margin-top: 20px; padding: 20px; border: 1px solid #ccc; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Черно-бело-салатовый сайт</title>
+    <style>
+        /* Общие настройки и сброс стилей */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border-radius: 0 !important; /* Полный запрет на скругления */
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace; /* Брутальный моноширинный шрифт */
+            line-height: 1.6;
+        }
+
+        /* Шапка сайта */
+        header {
+            background-color: #111111;
+            border-bottom: 3px solid #39ff14; /* Салатовая граница (Neon Green) */
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #39ff14;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 20px;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: color 0.2s, background-color 0.2s;
+            padding: 5px 10px;
+        }
+
+        nav a:hover {
+            color: #000000;
+            background-color: #39ff14;
+        }
+
+        /* Главный баннер (Hero) */
+        .hero {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 40px 20px;
+            border: 4px solid #ffffff; /* Белая рамка без скруглений */
+            background-color: #111111;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .hero h1 span {
+            color: #39ff14; /* Салатовый акцент */
+            background-color: #222222;
+            padding: 0 10px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #aaaaaa;
+            margin-bottom: 30px;
+            max-width: 800px;
+        }
+
+        /* Кнопки */
+        .btn {
+            display: inline-block;
+            background-color: #39ff14;
+            color: #000000;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 15px 30px;
+            text-decoration: none;
+            border: 2px solid #39ff14;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #000000;
+            color: #39ff14;
+            border-color: #39ff14;
+        }
+
+        /* Сетка контента */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            border-left: 8px solid #39ff14;
+            padding-left: 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: #111111;
+            border: 2px solid #333333;
+            padding: 25px;
+            transition: border-color 0.2s;
+        }
+
+        .card:hover {
+            border-color: #39ff14;
+        }
+
+        .card h3 {
+            color: #39ff14;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .card p {
+            color: #cccccc;
+            font-size: 14px;
+        }
+
+        /* Подвал сайта */
+        footer {
+            background-color: #111111;
+            border-top: 1px solid #333333;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666666;
+        }
+
+        footer span {
+            color: #39ff14;
+        }
+    </style>
 </head>
 <body>
 
-<button id="createBtn">Создать страницу</button>
-<div id="content">Стандартная страница</div>
+    <!-- Шапка -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">RAW.TXT</a>
+            <nav>
+                <a href="#about">О нас</a>
+                <a href="#services">Услуги</a>
+                <a href="#contacts">Контакты</a>
+            </nav>
+        </div>
+    </header>
 
-<script>
-  // максимум «созданных» страниц (хранится в localStorage)
-  function getMax() {
-    return parseInt(localStorage.getItem('maxPage') || '0', 10);
-  }
-  function setMax(n) {
-    localStorage.setItem('maxPage', n);
-  }
+    <!-- Главный блок -->
+    <section class="hero">
+        <h1>Дизайн <span>без компромиссов</span></h1>
+        <p>Чистый HTML и CSS. Полное отсутствие скруглений, острые углы, высокая контрастность и глубокий черный цвет в сочетании с неоновым салатовым акцентом.</p>
+        <a href="#services" class="btn">Исследовать</a>
+    </section>
 
-  function render() {
-    const hash = location.hash.replace('#', '');
-    const num = parseInt(hash, 10);
-    const max = getMax();
-    const content = document.getElementById('content');
+    <!-- Контентная секция -->
+    <main class="main-content" id="services">
+        <h2 class="section-title">Наши преимущества</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>0% Скруглений</h3>
+                <p>Только идеальные углы 90 градусов. Никаких border-radius и сглаживаний шейпов.</p>
+            </div>
+            <div class="card">
+                <h3>#39FF14</h3>
+                <p>Использование каноничного салатового неонового цвета для максимальной читаемости на темном фоне.</p>
+            </div>
+            <div class="card">
+                <h3>Monospace</h3>
+                <p>Шрифт Courier New подчеркивает строгость, технологичность и структуру интерфейса.</p>
+            </div>
+        </div>
+    </main>
 
-    if (!hash) {
-      content.textContent = 'Стандартная страница (введите #1, #2 и т.д.)';
-      return;
-    }
-
-    if (isNaN(num) || num < 1 || num > max) {
-      // нет такой страницы — редирект на стандартную
-      location.hash = '';
-      return;
-    }
-
-    content.textContent = `Это страница №${num}`;
-  }
-
-  document.getElementById('createBtn').addEventListener('click', () => {
-    const next = getMax() + 1;
-    setMax(next);
-    location.hash = next; // переход на новую «страницу»
-  });
-
-  window.addEventListener('hashchange', render);
-  render();
-</script>
+    <!-- Подвал -->
+    <footer>
+        <p>&copy; 2026 RAW.TXT. Создано в <span>черно-бело-салатовом</span> стиле.</p>
+    </footer>
 
 </body>
 </html>
