@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Светлый сайт с эффектом матового стекла</title>
-    <!-- Подключаем ультратонкий шрифт Montserrat (веса 100 и 200) -->
+    <title>Контрастный черно-белый сайт с салатовым акцентом</title>
+    <!-- Подключаем изящный, но читаемый шрифт Montserrat -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Montserrat:wght@100;200;300&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* Сброс стилей и жесткий запрет скруглений */
+        /* Сброс стилей и абсолютный запрет скруглений */
         * {
             margin: 0;
             padding: 0;
@@ -18,33 +18,27 @@
         }
 
         body {
-            /* Мягкий светлый фон с абстрактными салатовыми и темными пятнами для усиления эффекта стекла */
-            background-color: #f7f9fa;
-            background-image: 
-                radial-gradient(at 20% 20%, rgba(57, 255, 20, 0.15) 0px, transparent 50%),
-                radial-gradient(at 80% 40%, rgba(0, 0, 0, 0.05) 0px, transparent 50%),
-                radial-gradient(at 40% 80%, rgba(57, 255, 20, 0.1) 0px, transparent 50%);
-            background-attachment: fixed;
-            color: #111111;
+            background-color: #ffffff; /* Доминирующий чистый белый фон */
+            color: #000000;
             font-family: 'Montserrat', sans-serif;
-            font-weight: 200; /* Тонкое начертание по умолчанию */
-            letter-spacing: 0.5px;
-            line-height: 1.7;
+            font-weight: 300; /* Тонкий, но отчетливый и читаемый вес */
+            line-height: 1.6;
         }
 
-        /* Тонкие заголовки */
+        /* Ультратонкие, но крупные и контрастные заголовки */
         h1, h2, h3 {
-            font-weight: 100; /* Ультратонкий шрифт для заголовков */
+            font-weight: 200;
             text-transform: uppercase;
             letter-spacing: 2px;
+            color: #000000;
         }
 
-        /* Шапка с эффектом матового стекла */
+        /* ШАПКА: Темное матовое стекло для мощного контраста сверху */
         header {
-            background-color: rgba(255, 255, 255, 0.4);
+            background-color: rgba(0, 0, 0, 0.85); /* Глубокий черный с прозрачностью */
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(57, 255, 20, 0.4); /* Тонкая салатовая полоса */
+            border-bottom: 2px solid #1cb80a; /* Контрастный благородный салатовый */
             padding: 20px;
             position: sticky;
             top: 0;
@@ -60,208 +54,205 @@
         }
 
         .logo {
-            color: #000000;
+            color: #ffffff;
             font-size: 22px;
             text-decoration: none;
-            font-weight: 200;
+            font-weight: 300;
+            letter-spacing: 3px;
         }
 
         .logo span {
-            color: #2cd815; /* Чуть более глубокий салатовый для читаемости на белом */
-            font-weight: 300;
+            color: #1cb80a; /* Салатовый акцент */
+            font-weight: 400;
         }
 
         nav a {
-            color: #333333;
+            color: #cccccc;
             text-decoration: none;
             margin-left: 25px;
             font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
-            padding: 5px 0;
-            border-bottom: 1px solid transparent;
+            transition: color 0.3s ease;
         }
 
         nav a:hover {
-            color: #000000;
-            border-bottom: 1px solid #2cd815;
+            color: #1cb80a;
         }
 
-        /* Главный баннер (Матовое стекло) */
+        /* ГЛАВНЫЙ БЛОК: Белое матовое стекло на стыке темного и светлого */
+        .hero-section {
+            background-color: #000000; /* Полностью черный блок для баланса 50/50 */
+            padding: 100px 20px;
+            color: #ffffff;
+        }
+
         .hero {
             max-width: 1200px;
-            margin: 60px auto;
+            margin: 0 auto;
             padding: 60px 40px;
-            background-color: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.03);
+            /* Белое матовое стекло поверх черного фона */
+            background-color: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .hero h1 {
-            font-size: 42px;
+            color: #ffffff;
+            font-size: 46px;
             margin-bottom: 25px;
-            color: #000000;
         }
 
         .hero h1 span {
-            color: #2cd815;
-            font-weight: 200;
+            color: #1cb80a;
         }
 
         .hero p {
             font-size: 16px;
-            color: #555555;
+            color: #dddddd; /* Светло-серый для идеального чтения на темном */
             margin-bottom: 35px;
             max-width: 750px;
         }
 
-        /* Кнопка */
+        /* КОНТРАСТНАЯ КНОПКА */
         .btn {
             display: inline-block;
-            background-color: rgba(255, 255, 255, 0.7);
-            color: #000000;
+            background-color: transparent;
+            color: #1cb80a;
             font-size: 13px;
             letter-spacing: 2px;
             text-transform: uppercase;
             padding: 14px 35px;
             text-decoration: none;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(5px);
+            border: 1px solid #1cb80a;
             transition: all 0.3s ease;
+            font-weight: 400;
         }
 
         .btn:hover {
-            background-color: #2cd815;
-            color: #ffffff;
-            border-color: #2cd815;
-            box-shadow: 0 5px 15px rgba(44, 216, 21, 0.2);
+            background-color: #1cb80a;
+            color: #000000;
         }
 
-        /* Контентная зона */
+        /* КОНТЕНТНАЯ ЗОНА: Черные элементы на белом фоне */
         .main-content {
             max-width: 1200px;
-            margin: 0 auto 80px auto;
+            margin: 80px auto;
             padding: 0 20px;
         }
 
         .section-title {
-            font-size: 24px;
-            margin-bottom: 40px;
-            color: #000000;
-            position: relative;
-            padding-bottom: 10px;
+            font-size: 26px;
+            margin-bottom: 50px;
+            border-left: 4px solid #000000;
+            padding-left: 15px;
         }
 
-        /* Тонкая салатовая линия под заголовком */
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 1px;
-            background-color: #2cd815;
-        }
-
-        /* Сетка карточек */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
 
-        /* Карточки из матового стекла */
+        /* КАРТОЧКИ: Черное матовое стекло на чистом белом фоне */
         .card {
-            background-color: rgba(255, 255, 255, 0.4);
+            background-color: rgba(0, 0, 0, 0.03);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 35px 30px;
+            border: 1px solid #000000; /* Строгая и четкая черная рамка */
+            padding: 40px 30px;
             transition: all 0.3s ease;
         }
 
         .card:hover {
-            background-color: rgba(255, 255, 255, 0.6);
-            border-color: rgba(57, 255, 20, 0.5);
-            transform: translateY(-2px);
+            background-color: #000000;
+            border-color: #000000;
+        }
+
+        .card:hover h3 {
+            color: #1cb80a;
+        }
+
+        .card:hover p {
+            color: #ffffff;
         }
 
         .card h3 {
             color: #000000;
             font-size: 18px;
             margin-bottom: 15px;
-            font-weight: 200;
+            font-weight: 400;
+            transition: color 0.3s ease;
         }
 
         .card p {
-            color: #666666;
+            color: #333333; /* Темный текст для высокой читаемости */
             font-size: 14px;
+            transition: color 0.3s ease;
         }
 
-        /* Подвал */
+        /* ПОДВАЛ: Полностью черный финал */
         footer {
-            background-color: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            padding: 40px 20px;
+            background-color: #000000;
+            padding: 50px 20px;
             text-align: center;
             font-size: 12px;
             color: #888888;
             letter-spacing: 1px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         footer span {
-            color: #2cd815;
+            color: #1cb80a;
         }
     </style>
 </head>
 <body>
 
-    <!-- Шапка -->
+    <!-- Шапка (Черное стекло) -->
     <header>
         <div class="header-container">
-            <a href="#" class="logo">LIGHT<span>GLASS</span></a>
+            <a href="#" class="logo">MONO<span>CHROME</span></a>
             <nav>
-                <a href="#about">Концепт</a>
-                <a href="#features">Свойства</a>
-                <a href="#contacts">Контакты</a>
+                <a href="#concept">Концепция</a>
+                <a href="#cards">Спецификации</a>
+                <a href="#footer">Контакты</a>
             </nav>
         </div>
     </header>
 
-    <!-- Главный блок -->
-    <section class="hero">
-        <h1>Свет и <span>стекло</span></h1>
-        <p>Минималистичный интерфейс, в котором преобладает чистый белый цвет. Тонкая типографика придает дизайну легкость, а матовые стеклянные панели плавно отделяют контент от подложки.</p>
-        <a href="#features" class="btn">Смотреть детали</a>
+    <!-- Главный блок (Черная секция с белым стеклом) -->
+    <section class="hero-section" id="concept">
+        <div class="hero">
+            <h1>Контраст и <span>баланс</span></h1>
+            <p>Мы совместили глубокий черный и чистый белый цвета в равных пропорциях. Шрифт остался тонким и премиальным, но стал абсолютно читаемым за счет максимального контраста фонов. Ни одного скругленного угла — только чистая геометрия.</p>
+            <a href="#cards" class="btn">Изучить структуру</a>
+        </div>
     </section>
 
-    <!-- Контент -->
-    <main class="main-content" id="features">
-        <h2 class="section-title">Особенности структуры</h2>
+    <!-- Контент (Белая секция с черными карточками-стеклами) -->
+    <main class="main-content" id="cards">
+        <h2 class="section-title">Параметры интерфейса</h2>
         <div class="grid">
             <div class="card">
-                <h3>Frosted Glass</h3>
-                <p>Эффект реализован через сочетание полупрозрачного белого фона и CSS-свойства backdrop-filter для размытия заднего плана.</p>
+                <h3>Контраст 50/50</h3>
+                <p>Белый доминирует в контентной зоне, черный забирает на себя внимание в шапке, подвале и главном баннере. Идеальный баланс без грязи.</p>
             </div>
             <div class="card">
-                <h3>Light Font</h3>
-                <p>Шрифт Montserrat со сверхтонким начертанием (вес 100 и 200) делает текст невесомым и премиальным.</p>
+                <h3>Сдержанный салатовый</h3>
+                <p>Вместо ядовитого кислотного оттенка выбран благородный изумрудно-салатовый (#1cb80a). Он выполняет роль строгого индикатора.</p>
             </div>
             <div class="card">
-                <h3>Sharp Corners</h3>
-                <p>Полное отсутствие радиусов. Строгая геометрия и острые углы создают контраст с мягким размытием стекла.</p>
+                <h3>Два типа стекла</h3>
+                <p>Используется как темное матовое стекло (в шапке), так и светлое (внутри главного баннера) для глубокого визуального объема.</p>
             </div>
         </div>
     </main>
 
-    <!-- Подвал -->
-    <footer>
-        <p>&copy; 2026 LIGHTGLASS. Тонкий стиль и <span>салатовые акценты</span>.</p>
+    <!-- Подвал (Черный) -->
+    <footer id="footer">
+        <p>&copy; 2026 MONOCHROME. Высокая контрастность, тонкие линии и <span>салатовый акцент</span>.</p>
     </footer>
 
 </body>
