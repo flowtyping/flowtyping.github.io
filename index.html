@@ -3,200 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flowtype Соцсеть</title>
+    <title>flowtyping — Соцсеть</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #eef2f3; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .app-container { width: 100%; max-width: 600px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        h1, h2 { text-align: center; color: #333; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        h2 { margin-top: 0; color: #1c1e21; }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccd0d5;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover { background-color: #166fe5; }
         .hidden { display: none !important; }
-        
-        /* Формы */
-        .auth-form, .post-form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-radius: 8px; }
-        input, textarea, button { padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
-        button { background-color: #007bff; color: white; border: none; cursor: pointer; font-weight: bold; }
-        button:hover { background-color: #0056b3; }
-        .secondary-btn { background-color: #6c757d; }
-        .secondary-btn:hover { background-color: #5a6268; }
-
-        /* Лента постов */
-        .user-info { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
-        .post { background: white; border: 1px solid #e1e8ed; padding: 15px; border-radius: 8px; margin-bottom: 15px; position: relative; }
-        .post-author { font-weight: bold; color: #007bff; margin-bottom: 5px; font-size: 14px; }
-        .post-text { color: #2c3e50; font-size: 16px; word-wrap: break-word; }
-        .post-time { font-size: 11px; color: #999; margin-top: 10px; text-align: right; }
+        .post {
+            border-bottom: 1px solid #e5e5e5;
+            padding: 15px 0;
+        }
+        .post:last-child { border-bottom: none; }
+        .post-author { font-weight: bold; color: #050505; font-size: 0.9em; }
+        .post-time { color: #65676b; font-size: 0.8em; }
+        .post-text { margin-top: 8px; color: #050505; word-break: break-word; }
+        .header-actions { display: flex; justify-content: space-between; align-items: center; }
+        .logout-btn { background-color: #e4e6eb; color: #050505; width: auto; padding: 6px 12px; }
+        .logout-btn:hover { background-color: #d8dadf; }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <h1>Flowtype Network</h1>
-
-    <!-- ЭКРАН 1: Авторизация (Вход / Регистрация) -->
-    <div id="auth-screen" class="auth-form">
-        <h2>Вход в соцсеть</h2>
-        <input type="email" id="auth-email" placeholder="Электронная почта" required>
-        <input type="password" id="auth-password" placeholder="Пароль (мин. 6 символов)" required>
-        <button id="btn-login">Войти</button>
-        <button id="btn-register" class="secondary-btn">Создать аккаунт</button>
-    </div>
-
-    <!-- ЭКРАН 2: Лента и создание постов (Виден только авторизованным) -->
-    <div id="main-screen" class="hidden">
-        <div class="user-info">
-            <span id="user-display-email">Вы вошли как: аккаунт</span>
-            <button id="btn-logout" style="padding: 5px 10px; font-size: 12px;" class="secondary-btn">Выйти</button>
+    <div class="container">
+        <!-- Окно авторизации -->
+        <div id="auth-block" class="card">
+            <h2>Вход в flowtyping</h2>
+            <input type="email" id="email" placeholder="Электронная почта">
+            <input type="password" id="password" placeholder="Пароль">
+            <button id="btn-login" style="margin-bottom: 10px;">Войти</button>
+            <button id="btn-register" style="background-color: #42b72a;">Создать аккаунт</button>
         </div>
 
-        <!-- Создание нового поста -->
-        <div class="post-form">
-            <textarea id="post-textarea" rows="3" placeholder="Что у вас нового?" required></textarea>
-            <button id="btn-send-post">Опубликовать пост</button>
-        </div>
-
-        <!-- Лента новостей -->
-        <h2>Лента постов</h2>
-        <div id="feed-container">Загрузка постов...</div>
-    </div>
-</div>
-
-<!-- ПОДКЛЮЧЕНИЕ FIREBASE SDK -->
-<script type="module">
-    // Импортируем модули Firebase
-    import { initializeApp } from "https://gstatic.com";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://gstatic.com";
-    import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } from "https://gstatic.com";
-
-    // Конфигурация вашего проекта
-    const firebaseConfig = {
-      apiKey: "AIzaSyA5hEt9DQLj4YZVKt9Rw7GFEbdkgD9lt58",
-      authDomain: "://firebaseapp.com",
-      projectId: "flowtype-be130",
-      storageBucket: "flowtype-be130.firebasestorage.app",
-      messagingSenderId: "13362716122",
-      appId: "1:13362716122:web:bdcaeebd49f2b571a9f4e3"
-    };
-
-    // Инициализация сервисов
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    // Элементы интерфейса
-    const authScreen = document.getElementById('auth-screen');
-    const mainScreen = document.getElementById('main-screen');
-    const feedContainer = document.getElementById('feed-container');
-    const userDisplayEmail = document.getElementById('user-display-email');
-
-    let currentUser = null;
-
-    // --- АВТОРИЗАЦИЯ ПОЛЬЗОВАТЕЛЕЙ ---
-
-    // Слушатель состояния пользователя (Вошел / Вышел)
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            currentUser = user;
-            userDisplayEmail.innerText = `Аккаунт: ${user.email}`;
-            authScreen.classList.add('hidden');
-            mainScreen.classList.remove('hidden');
-            loadPosts(); // Загружаем публикации
-        } else {
-            currentUser = null;
-            authScreen.classList.remove('hidden');
-            mainScreen.classList.add('hidden');
-        }
-    });
-
-    // Регистрация нового аккаунта
-    document.getElementById('btn-register').addEventListener('click', async () => {
-        const email = document.getElementById('auth-email').value;
-        const password = document.getElementById('auth-password').value;
-        try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            alert('Аккаунт успешно создан!');
-        } catch (error) {
-            alert('Ошибка регистрации: ' + error.message);
-        }
-    });
-
-    // Вход в существующий аккаунт
-    document.getElementById('btn-login').addEventListener('click', async () => {
-        const email = document.getElementById('auth-email').value;
-        const password = document.getElementById('auth-password').value;
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-        } catch (error) {
-            alert('Ошибка входа: ' + error.message);
-        }
-    });
-
-    // Выход из системы
-    document.getElementById('btn-logout').addEventListener('click', () => {
-        signOut(auth);
-    });
-
-
-    // --- РАБОТА С ПОСТАМИ (БАЗА ДАННЫХ FIRESTORE) ---
-
-    // Создание и отправка поста
-    document.getElementById('btn-send-post').addEventListener('click', async () => {
-        const postText = document.getElementById('post-textarea').value.trim();
-        if (!postText) return alert('Напишите что-нибудь перед публикацией');
-
-        try {
-            // Добавляем документ в коллекцию "posts"
-            await addDoc(collection(db, "posts"), {
-                author: currentUser.email,
-                text: postText,
-                createdAt: new Date() // Текущее время сервера/клиента
-            });
-            document.getElementById('post-textarea').value = ''; // Очищаем поле
-        } catch (error) {
-            alert('Не удалось опубликовать пост: ' + error.message);
-        }
-    });
-
-    // Загрузка постов в реальном времени (onSnapshot)
-    function loadPosts() {
-        // Запрос к коллекции "posts", сортируем от новых к старым
-        const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
-        
-        // onSnapshot автоматически обновляет страницу, когда в БД добавляется пост
-        onSnapshot(q, (querySnapshot) => {
-            feedContainer.innerHTML = ''; // Очищаем старые элементы
+        <!-- Лента и создание постов -->
+        <div id="main-block" class="card hidden">
+            <div class="header-actions">
+                <span id="user-display">Вы вошли как: ...</span>
+                <button id="btn-logout" class="logout-btn">Выйти</button>
+            </div>
             
-            if (querySnapshot.empty) {
-                feedContainer.innerHTML = '<p style="color:#888;">Здесь пока нет ни одного поста. Будьте первым!</p>';
-                return;
+            <hr style="border: 0; border-top: 1px solid #e5e5e5; margin: 15px 0;">
+            
+            <h3>Что у вас нового?</h3>
+            <textarea id="post-input" rows="3" placeholder="Напишите что-нибудь в flowtyping..."></textarea>
+            <button id="btn-send">Опубликовать</button>
+
+            <h3>Лента постов</h3>
+            <div id="posts-container">Загрузка постов...</div>
+        </div>
+    </div>
+
+    <!-- Подключение модулей Firebase через CDN -->
+    <script type="module">
+        import { initializeApp } from "https://gstatic.com";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://gstatic.com";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } from "https://gstatic.com";
+
+        // Ваша конфигурация из запроса
+        const firebaseConfig = { 
+            apiKey: "AIzaSyA5hEt9DQLj4YZVKt9Rw7GFEbdkgD9lt58", 
+            authDomain: "flowtype-be130.firebaseapp.com", 
+            projectId: "flowtype-be130", 
+            storageBucket: "flowtype-be130.firebasestorage.app", 
+            messagingSenderId: "13362716122", 
+            appId: "1:13362716122:web:bdcaeebd49f2b571a9f4e3"
+        };
+
+        // Инициализация
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // DOM элементы
+        const authBlock = document.getElementById('auth-block');
+        const mainBlock = document.getElementById('main-block');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const postInput = document.getElementById('post-input');
+        const postsContainer = document.getElementById('posts-container');
+        const userDisplay = document.getElementById('user-display');
+
+        let currentUser = null;
+
+        // --- УПРАВЛЕНИЕ АВТОРИЗАЦИЕЙ ---
+
+        // Слушатель состояния пользователя
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                userDisplay.textContent = `Вы вошли как: ${user.email}`;
+                authBlock.classList.add('hidden');
+                mainBlock.classList.remove('hidden');
+                loadPosts(); // Подгружаем посты
+            } else {
+                currentUser = null;
+                authBlock.classList.remove('hidden');
+                mainBlock.classList.add('hidden');
             }
-
-            querySnapshot.forEach((doc) => {
-                const postData = doc.data();
-                
-                // Форматируем дату
-                const date = postData.createdAt ? new Date(postData.createdAt.seconds * 1000).toLocaleString() : 'Только что';
-
-                // Создаем элемент поста
-                const postElement = document.createElement('div');
-                postElement.className = 'post';
-                postElement.innerHTML = `
-                    <div class="post-author">${postData.author}</div>
-                    <div class="post-text">${escapeHtml(postData.text)}</div>
-                    <div class="post-time">${date}</div>
-                `;
-                feedContainer.appendChild(postElement);
-            });
         });
-    }
 
-    // Защита от XSS (внедрения вредоносного HTML пользователями)
-    function escapeHtml(text) {
-        return text
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
-</script>
+        // Регистрация
+        document.getElementById('btn-register').addEventListener('click', async () => {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            try {
+                await createUserWithEmailAndPassword(auth, email, password);
+                alert('Аккаунт успешно создан!');
+            } catch (error) {
+                alert('Ошибка регистрации: ' + error.message);
+            }
+        });
+
+        // Вход
+        document.getElementById('btn-login').addEventListener('click', async () => {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (error) {
+                alert('Ошибка входа: ' + error.message);
+            }
+        });
+
+        // Выход
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            signOut(auth);
+        });
+
+
+        // --- РАБОТА С ЛЕНТОЙ (FIRESTORE) ---
+
+        // Создание поста
+        document.getElementById('btn-send').addEventListener('click', async () => {
+            const text = postInput.value.trim();
+            if (!text) return alert('Пост не может быть пустым');
+
+            try {
+                await addDoc(collection(db, "posts"), {
+                    text: text,
+                    author: currentUser.email,
+                    createdAt: new Date().toISOString()
+                });
+                postInput.value = ''; // Очищаем поле
+            } catch (error) {
+                alert('Не удалось отправить пост: ' + error.message);
+            }
+        });
+
+        // Получение постов в реальном времени
+        function loadPosts() {
+            const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+            
+            // onSnapshot автоматически обновляет страницу, если кто-то добавил пост
+            onSnapshot(q, (snapshot) => {
+                postsContainer.innerHTML = '';
+                if (snapshot.empty) {
+                    postsContainer.innerHTML = '<p style="color: #65676b;">Здесь пока нет ни одного поста. Будьте первым!</p>';
+                    return;
+                }
+                
+                snapshot.forEach((doc) => {
+                    const post = doc.data();
+                    const postElement = document.createElement('div');
+                    postElement.className = 'post';
+                    
+                    const date = new Date(post.createdAt).toLocaleString('ru-RU');
+
+                    postElement.innerHTML = `
+                        <div class="post-author">${post.author}</div>
+                        <div class="post-time">${date}</div>
+                        <div class="post-text">${escapeHTML(post.text)}</div>
+                    `;
+                    postsContainer.appendChild(postElement);
+                });
+            });
+        }
+
+        // Защита от XSS (внедрения чужого HTML-кода в посты)
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+    </script>
 </body>
 </html>
