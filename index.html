@@ -3,257 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Контрастный черно-белый сайт с салатовым акцентом</title>
-    <!-- Подключаем изящный, но читаемый шрифт Montserrat -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <title>Flowtype Соцсеть</title>
     <style>
-        /* Сброс стилей и абсолютный запрет скруглений */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            border-radius: 0 !important;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #eef2f3; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .app-container { width: 100%; max-width: 600px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h1, h2 { text-align: center; color: #333; }
+        .hidden { display: none !important; }
+        
+        /* Формы */
+        .auth-form, .post-form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-radius: 8px; }
+        input, textarea, button { padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+        button { background-color: #007bff; color: white; border: none; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #0056b3; }
+        .secondary-btn { background-color: #6c757d; }
+        .secondary-btn:hover { background-color: #5a6268; }
 
-        body {
-            background-color: #ffffff; /* Доминирующий чистый белый фон */
-            color: #000000;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 300; /* Тонкий, но отчетливый и читаемый вес */
-            line-height: 1.6;
-        }
-
-        /* Ультратонкие, но крупные и контрастные заголовки */
-        h1, h2, h3 {
-            font-weight: 200;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #000000;
-        }
-
-        /* ШАПКА: Темное матовое стекло для мощного контраста сверху */
-        header {
-            background-color: rgba(0, 0, 0, 0.85); /* Глубокий черный с прозрачностью */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 2px solid #1cb80a; /* Контрастный благородный салатовый */
-            padding: 20px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            color: #ffffff;
-            font-size: 22px;
-            text-decoration: none;
-            font-weight: 300;
-            letter-spacing: 3px;
-        }
-
-        .logo span {
-            color: #1cb80a; /* Салатовый акцент */
-            font-weight: 400;
-        }
-
-        nav a {
-            color: #cccccc;
-            text-decoration: none;
-            margin-left: 25px;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: #1cb80a;
-        }
-
-        /* ГЛАВНЫЙ БЛОК: Белое матовое стекло на стыке темного и светлого */
-        .hero-section {
-            background-color: #000000; /* Полностью черный блок для баланса 50/50 */
-            padding: 100px 20px;
-            color: #ffffff;
-        }
-
-        .hero {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 40px;
-            /* Белое матовое стекло поверх черного фона */
-            background-color: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .hero h1 {
-            color: #ffffff;
-            font-size: 46px;
-            margin-bottom: 25px;
-        }
-
-        .hero h1 span {
-            color: #1cb80a;
-        }
-
-        .hero p {
-            font-size: 16px;
-            color: #dddddd; /* Светло-серый для идеального чтения на темном */
-            margin-bottom: 35px;
-            max-width: 750px;
-        }
-
-        /* КОНТРАСТНАЯ КНОПКА */
-        .btn {
-            display: inline-block;
-            background-color: transparent;
-            color: #1cb80a;
-            font-size: 13px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 14px 35px;
-            text-decoration: none;
-            border: 1px solid #1cb80a;
-            transition: all 0.3s ease;
-            font-weight: 400;
-        }
-
-        .btn:hover {
-            background-color: #1cb80a;
-            color: #000000;
-        }
-
-        /* КОНТЕНТНАЯ ЗОНА: Черные элементы на белом фоне */
-        .main-content {
-            max-width: 1200px;
-            margin: 80px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            font-size: 26px;
-            margin-bottom: 50px;
-            border-left: 4px solid #000000;
-            padding-left: 15px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        /* КАРТОЧКИ: Черное матовое стекло на чистом белом фоне */
-        .card {
-            background-color: rgba(0, 0, 0, 0.03);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid #000000; /* Строгая и четкая черная рамка */
-            padding: 40px 30px;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            background-color: #000000;
-            border-color: #000000;
-        }
-
-        .card:hover h3 {
-            color: #1cb80a;
-        }
-
-        .card:hover p {
-            color: #ffffff;
-        }
-
-        .card h3 {
-            color: #000000;
-            font-size: 18px;
-            margin-bottom: 15px;
-            font-weight: 400;
-            transition: color 0.3s ease;
-        }
-
-        .card p {
-            color: #333333; /* Темный текст для высокой читаемости */
-            font-size: 14px;
-            transition: color 0.3s ease;
-        }
-
-        /* ПОДВАЛ: Полностью черный финал */
-        footer {
-            background-color: #000000;
-            padding: 50px 20px;
-            text-align: center;
-            font-size: 12px;
-            color: #888888;
-            letter-spacing: 1px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        footer span {
-            color: #1cb80a;
-        }
+        /* Лента постов */
+        .user-info { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
+        .post { background: white; border: 1px solid #e1e8ed; padding: 15px; border-radius: 8px; margin-bottom: 15px; position: relative; }
+        .post-author { font-weight: bold; color: #007bff; margin-bottom: 5px; font-size: 14px; }
+        .post-text { color: #2c3e50; font-size: 16px; word-wrap: break-word; }
+        .post-time { font-size: 11px; color: #999; margin-top: 10px; text-align: right; }
     </style>
 </head>
 <body>
 
-    <!-- Шапка (Черное стекло) -->
-    <header>
-        <div class="header-container">
-            <a href="#" class="logo">MONO<span>CHROME</span></a>
-            <nav>
-                <a href="#concept">Концепция</a>
-                <a href="#cards">Спецификации</a>
-                <a href="#footer">Контакты</a>
-            </nav>
+<div class="app-container">
+    <h1>Flowtype Network</h1>
+
+    <!-- ЭКРАН 1: Авторизация (Вход / Регистрация) -->
+    <div id="auth-screen" class="auth-form">
+        <h2>Вход в соцсеть</h2>
+        <input type="email" id="auth-email" placeholder="Электронная почта" required>
+        <input type="password" id="auth-password" placeholder="Пароль (мин. 6 символов)" required>
+        <button id="btn-login">Войти</button>
+        <button id="btn-register" class="secondary-btn">Создать аккаунт</button>
+    </div>
+
+    <!-- ЭКРАН 2: Лента и создание постов (Виден только авторизованным) -->
+    <div id="main-screen" class="hidden">
+        <div class="user-info">
+            <span id="user-display-email">Вы вошли как: аккаунт</span>
+            <button id="btn-logout" style="padding: 5px 10px; font-size: 12px;" class="secondary-btn">Выйти</button>
         </div>
-    </header>
 
-    <!-- Главный блок (Черная секция с белым стеклом) -->
-    <section class="hero-section" id="concept">
-        <div class="hero">
-            <h1>Контраст и <span>баланс</span></h1>
-            <p>Мы совместили глубокий черный и чистый белый цвета в равных пропорциях. Шрифт остался тонким и премиальным, но стал абсолютно читаемым за счет максимального контраста фонов. Ни одного скругленного угла — только чистая геометрия.</p>
-            <a href="#cards" class="btn">Изучить структуру</a>
+        <!-- Создание нового поста -->
+        <div class="post-form">
+            <textarea id="post-textarea" rows="3" placeholder="Что у вас нового?" required></textarea>
+            <button id="btn-send-post">Опубликовать пост</button>
         </div>
-    </section>
 
-    <!-- Контент (Белая секция с черными карточками-стеклами) -->
-    <main class="main-content" id="cards">
-        <h2 class="section-title">Параметры интерфейса</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Контраст 50/50</h3>
-                <p>Белый доминирует в контентной зоне, черный забирает на себя внимание в шапке, подвале и главном баннере. Идеальный баланс без грязи.</p>
-            </div>
-            <div class="card">
-                <h3>Сдержанный салатовый</h3>
-                <p>Вместо ядовитого кислотного оттенка выбран благородный изумрудно-салатовый (#1cb80a). Он выполняет роль строгого индикатора.</p>
-            </div>
-            <div class="card">
-                <h3>Два типа стекла</h3>
-                <p>Используется как темное матовое стекло (в шапке), так и светлое (внутри главного баннера) для глубокого визуального объема.</p>
-            </div>
-        </div>
-    </main>
+        <!-- Лента новостей -->
+        <h2>Лента постов</h2>
+        <div id="feed-container">Загрузка постов...</div>
+    </div>
+</div>
 
-    <!-- Подвал (Черный) -->
-    <footer id="footer">
-        <p>&copy; 2026 MONOCHROME. Высокая контрастность, тонкие линии и <span>салатовый акцент</span>.</p>
-    </footer>
+<!-- ПОДКЛЮЧЕНИЕ FIREBASE SDK -->
+<script type="module">
+    // Импортируем модули Firebase
+    import { initializeApp } from "https://gstatic.com";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://gstatic.com";
+    import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } from "https://gstatic.com";
 
+    // Конфигурация вашего проекта
+    const firebaseConfig = {
+      apiKey: "AIzaSyA5hEt9DQLj4YZVKt9Rw7GFEbdkgD9lt58",
+      authDomain: "://firebaseapp.com",
+      projectId: "flowtype-be130",
+      storageBucket: "flowtype-be130.firebasestorage.app",
+      messagingSenderId: "13362716122",
+      appId: "1:13362716122:web:bdcaeebd49f2b571a9f4e3"
+    };
+
+    // Инициализация сервисов
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Элементы интерфейса
+    const authScreen = document.getElementById('auth-screen');
+    const mainScreen = document.getElementById('main-screen');
+    const feedContainer = document.getElementById('feed-container');
+    const userDisplayEmail = document.getElementById('user-display-email');
+
+    let currentUser = null;
+
+    // --- АВТОРИЗАЦИЯ ПОЛЬЗОВАТЕЛЕЙ ---
+
+    // Слушатель состояния пользователя (Вошел / Вышел)
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            currentUser = user;
+            userDisplayEmail.innerText = `Аккаунт: ${user.email}`;
+            authScreen.classList.add('hidden');
+            mainScreen.classList.remove('hidden');
+            loadPosts(); // Загружаем публикации
+        } else {
+            currentUser = null;
+            authScreen.classList.remove('hidden');
+            mainScreen.classList.add('hidden');
+        }
+    });
+
+    // Регистрация нового аккаунта
+    document.getElementById('btn-register').addEventListener('click', async () => {
+        const email = document.getElementById('auth-email').value;
+        const password = document.getElementById('auth-password').value;
+        try {
+            await createUserWithEmailAndPassword(auth, email, password);
+            alert('Аккаунт успешно создан!');
+        } catch (error) {
+            alert('Ошибка регистрации: ' + error.message);
+        }
+    });
+
+    // Вход в существующий аккаунт
+    document.getElementById('btn-login').addEventListener('click', async () => {
+        const email = document.getElementById('auth-email').value;
+        const password = document.getElementById('auth-password').value;
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+        } catch (error) {
+            alert('Ошибка входа: ' + error.message);
+        }
+    });
+
+    // Выход из системы
+    document.getElementById('btn-logout').addEventListener('click', () => {
+        signOut(auth);
+    });
+
+
+    // --- РАБОТА С ПОСТАМИ (БАЗА ДАННЫХ FIRESTORE) ---
+
+    // Создание и отправка поста
+    document.getElementById('btn-send-post').addEventListener('click', async () => {
+        const postText = document.getElementById('post-textarea').value.trim();
+        if (!postText) return alert('Напишите что-нибудь перед публикацией');
+
+        try {
+            // Добавляем документ в коллекцию "posts"
+            await addDoc(collection(db, "posts"), {
+                author: currentUser.email,
+                text: postText,
+                createdAt: new Date() // Текущее время сервера/клиента
+            });
+            document.getElementById('post-textarea').value = ''; // Очищаем поле
+        } catch (error) {
+            alert('Не удалось опубликовать пост: ' + error.message);
+        }
+    });
+
+    // Загрузка постов в реальном времени (onSnapshot)
+    function loadPosts() {
+        // Запрос к коллекции "posts", сортируем от новых к старым
+        const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+        
+        // onSnapshot автоматически обновляет страницу, когда в БД добавляется пост
+        onSnapshot(q, (querySnapshot) => {
+            feedContainer.innerHTML = ''; // Очищаем старые элементы
+            
+            if (querySnapshot.empty) {
+                feedContainer.innerHTML = '<p style="color:#888;">Здесь пока нет ни одного поста. Будьте первым!</p>';
+                return;
+            }
+
+            querySnapshot.forEach((doc) => {
+                const postData = doc.data();
+                
+                // Форматируем дату
+                const date = postData.createdAt ? new Date(postData.createdAt.seconds * 1000).toLocaleString() : 'Только что';
+
+                // Создаем элемент поста
+                const postElement = document.createElement('div');
+                postElement.className = 'post';
+                postElement.innerHTML = `
+                    <div class="post-author">${postData.author}</div>
+                    <div class="post-text">${escapeHtml(postData.text)}</div>
+                    <div class="post-time">${date}</div>
+                `;
+                feedContainer.appendChild(postElement);
+            });
+        });
+    }
+
+    // Защита от XSS (внедрения вредоносного HTML пользователями)
+    function escapeHtml(text) {
+        return text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+</script>
 </body>
 </html>
